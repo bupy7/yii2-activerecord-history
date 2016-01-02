@@ -7,7 +7,7 @@ use yii\base\Behavior;
 use yii\db\BaseActiveRecord;
 use yii\base\Event;
 use bupy7\activerecord\history\Module;
-use bupy7\activerecord\history\models\History as HistoryModel;
+use bupy7\activerecord\history\entities\History as HistoryEntity;
 use yii\base\NotSupportedException;
 
 /**
@@ -92,10 +92,10 @@ class History extends Behavior
         
         switch ($event->name) {
             case BaseActiveRecord::EVENT_AFTER_INSERT:
-                $model = new HistoryModel([
+                $model = new HistoryEntity([
                     'table_name' => $tableName,
                     'row_id' => $rowId,
-                    'event' => HistoryModel::EVENT_INSERT,
+                    'event' => HistoryEntity::EVENT_INSERT,
                     'created_at' => $createdAt,
                     'created_by' => $createdBy,
                 ]);
@@ -103,10 +103,10 @@ class History extends Behavior
                 break;
             
             case BaseActiveRecord::EVENT_AFTER_DELETE:
-                $model = new HistoryModel([
+                $model = new HistoryEntity([
                     'table_name' => $tableName,
                     'row_id' => $rowId,
-                    'event' => HistoryModel::EVENT_DELETE,
+                    'event' => HistoryEntity::EVENT_DELETE,
                     'created_at' => $createdAt,
                     'created_by' => $createdBy,
                 ]);
@@ -118,13 +118,13 @@ class History extends Behavior
                     if ($value == $this->owner->$name || isset($this->skipAttributes[$name])) {
                         continue;
                     }
-                    $model = new HistoryModel([
+                    $model = new HistoryEntity([
                         'table_name' => $tableName,
                         'row_id' => $rowId,
                         'field_name' => $name,
                         'old_value' => $value,
                         'new_value' => $this->owner->$name,
-                        'event' => HistoryModel::EVENT_UPDATE,
+                        'event' => HistoryEntity::EVENT_UPDATE,
                         'created_at' => $createdAt,
                         'created_by' => $createdBy,
                     ]);

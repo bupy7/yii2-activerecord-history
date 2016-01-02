@@ -3,7 +3,7 @@
 namespace bupy7\activerecord\history\storages;
 
 use Yii;
-use bupy7\activerecord\history\models\History;
+use bupy7\activerecord\history\entities\History;
 use bupy7\activerecord\history\storages\Base as BaseStorage;
 use bupy7\activerecord\history\Module;
 

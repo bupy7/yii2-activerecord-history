@@ -1,16 +1,16 @@
 <?php
 
-namespace bupy7\activerecord\history\models;
+namespace bupy7\activerecord\history\entities;
 
 use Yii;
-use yii\base\Model;
+use yii\base\Object;
 
 /**
- * 
+ * Entity of collection history changes active record model.
  * @author Belosludcev Vasilij <https://github.com/bupy7>
  * @since 1.0.0
  */
-class History extends Model
+class History extends Object
 {
     /**
      * Event types of history to the AR object: when insert row.

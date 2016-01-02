@@ -4,7 +4,7 @@ namespace bupy7\activerecord\history\storages;
 
 use Yii;
 use yii\base\Object;
-use bupy7\activerecord\history\models\History;
+use bupy7\activerecord\history\entities\History;
 use bupy7\activerecord\history\interfaces\Storage as StorageInterface;
 
 /**
