@@ -15,36 +15,28 @@ class History extends Model
     /**
      * Event types of history to the AR object: when insert row.
      */
-    const OT_INSERT = 1;
+    const EVENT_INSERT = 1;
     /**
      * Event types of history to the AR object: when update row.
      */
-    const OT_UPDATE = 2;
+    const EVENT_UPDATE = 2;
     /**
      * Event types of history to the AR object: when delete row.
      */
-    const OT_DELETE = 3;
-    /**
-     * Event types of history to the AR object: when update primary key of row.
-     */
-    const OT_UPDATE_PK = 4;
+    const EVENT_DELETE = 3;
     
-    /**
-     * @var integer Timestamp of create or update field.
-     */
-    public $date;
     /**
      * @var string Name of table where has been created or updated field.
      */
     public $table_name;
     /**
-     * @var string Name change of field.
-     */
-    public $field_name;
-    /**
      * @var integer Id of row where has been created or updated field. 
      */
     public $row_id;
+    /**
+     * @var string Name change of field.
+     */
+    public $field_name;
     /**
      * @var string Old value of field before updated field.
      */
@@ -56,10 +48,14 @@ class History extends Model
     /**
      * @var integer Event type of history to the AR object.
      */
-    public $operation_type;
+    public $event;
+    /**
+     * @var integer Timestamp of create or update field.
+     */
+    public $created_at;
     /**
      * @var integer Id of user which created or updated field.
      */
-    public $user_id;
+    public $created_by;
 }
 

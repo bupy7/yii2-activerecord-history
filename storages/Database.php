@@ -37,14 +37,14 @@ class Database extends BaseStorage
             ->batchInsert(
                 $this->module->tableName,
                 [
-                    'date',
                     'table_name',
                     'field_name',
                     'row_id',
                     'old_value',
                     'new_value',
-                    'operation_type',
-                    'user_id'
+                    'event',
+                    'created_at',
+                    'created_by',
                 ],
                 $this->prepareRows($this->getCollection())
             )
@@ -62,14 +62,14 @@ class Database extends BaseStorage
         foreach ($collection as $model)
         {
             $rows[] = [
-                $model->date,
                 $model->table_name,
                 $model->field_name,
                 $model->row_id,
                 $model->old_value,
                 $model->new_value,
-                $model->operation_type,
-                $model->user_id
+                $model->event,
+                $model->created_at,
+                $model->created_by,
             ];
         }
         return $rows;

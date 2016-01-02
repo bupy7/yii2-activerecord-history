@@ -5,6 +5,7 @@ namespace bupy7\activerecord\history;
 use Yii;
 use yii\db\Connection;
 use yii\di\Instance;
+use yii\web\User;
 
 /**
  * 
@@ -27,6 +28,10 @@ class Module extends \yii\base\Module
      * with a DB connection object.
      */
     public $db = 'db';
+    /**
+     * @var type 
+     */
+    public $user = 'user';
     
     /**
      * @inheritdoc
@@ -35,5 +40,6 @@ class Module extends \yii\base\Module
     {
         parent::init();
         $this->db = Instance::ensure($this->db, Connection::className());
+        $this->user = Instance::ensure($this->user, User::className());
     }
 }
