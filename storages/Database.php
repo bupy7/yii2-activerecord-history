@@ -31,48 +31,39 @@ class Database extends BaseStorage
      * @inheritdoc
      */
     public function flush()
-    {       
-        return (bool)$this->module->db
-            ->createCommand()
-            ->batchInsert(
-                $this->module->tableName,
-                [
-                    'table_name',
-                    'field_name',
-                    'row_id',
-                    'old_value',
-                    'new_value',
-                    'event',
-                    'created_at',
-                    'created_by',
-                ],
-                $this->prepareRows($this->getCollection())
-            )
-            ->execute();
+    {          
+        $collection = $this->getCollection();
+        if (!empty($collection)) {
+            list($sql, $params) = $this->prepareQuery($collection);
+            return (bool)$this->module->db->createCommand($sql, $params)->execute();
+        }
+        return true;
     }
     
     /**
      * 
      * @param array $collection
-     * @return array
+     * @return string
      */
-    protected function prepareRows(array $collection)
+    protected function prepareQuery(array $collection)
     {
-        $rows = [];
-        foreach ($collection as $model)
-        {
-            $rows[] = [
-                $model->table_name,
-                $model->field_name,
-                $model->row_id,
-                $model->old_value,
-                $model->new_value,
-                $model->event,
-                $model->created_at,
-                $model->created_by,
+        $queryBuilder = $this->module->db->getQueryBuilder();    
+        $sql = [];
+        $params = [];
+        for ($i = 0; $i != count($collection); $i++) {
+            $row = [
+                'table_name' => $collection[$i]->table_name,
+                'field_name' => $collection[$i]->field_name,
+                'row_id' => $collection[$i]->row_id,
+                'old_value' => $collection[$i]->old_value,
+                'new_value' => $collection[$i]->new_value,
+                'event' => $collection[$i]->event,
+                'created_at' => $collection[$i]->created_at,
+                'created_by' => $collection[$i]->created_by,
             ];
-        }
-        return $rows;
+            $sql[] = $queryBuilder->insert($this->module->tableName, $row, $params);
+        }       
+        return [implode(';' . PHP_EOL, $sql), $params];
     }
 }
 

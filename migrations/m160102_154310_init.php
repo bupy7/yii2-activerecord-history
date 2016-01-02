@@ -27,8 +27,8 @@ class m160102_154310_init extends Migration
         ]);
         $this->createIndex('index-1', $tableName, 'table_name');
         $this->createIndex('index-2', $tableName, ['table_name', 'row_id']);
-        $this->createIndex('index-2', $tableName, ['table_name', 'field_name']);
-        $this->createIndex('index-3', $tableName, 'event');
+        $this->createIndex('index-3', $tableName, ['table_name', 'field_name']);
+        $this->createIndex('index-4', $tableName, 'event');
     }
 
     public function down()

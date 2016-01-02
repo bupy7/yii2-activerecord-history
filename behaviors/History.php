@@ -7,7 +7,7 @@ use yii\base\Behavior;
 use yii\db\BaseActiveRecord;
 use yii\base\Event;
 use bupy7\activerecord\history\Module;
-use bupy7\activerecord\models\History as HistoryModel;
+use bupy7\activerecord\history\models\History as HistoryModel;
 use yii\base\NotSupportedException;
 
 /**
@@ -41,6 +41,10 @@ class History extends Behavior
     /**
      * @var array
      */
+    public $skipAttributes = [];
+    /**
+     * @var array
+     */
     protected $eventMap = [
         self::EVENT_INSERT => BaseActiveRecord::EVENT_AFTER_INSERT,
         self::EVENT_UPDATE => BaseActiveRecord::EVENT_AFTER_UPDATE,
@@ -58,6 +62,7 @@ class History extends Behavior
     {
         parent::init();
         $this->module = Module::getInstance();
+        $this->skipAttributes = array_fill_keys($this->skipAttributes, true);
     }
     
     /**
@@ -67,7 +72,7 @@ class History extends Behavior
     {
         $events = [];
         foreach ($this->allowEvents as $name){
-            $events[$this->eventMap($name)] = 'saveHistory';
+            $events[$this->eventMap[$name]] = 'saveHistory';
         }
         return $events;
     }
@@ -76,7 +81,7 @@ class History extends Behavior
      * @param Event $event
      */
     public function saveHistory(Event $event)
-    {       
+    {   
         $rowId = $this->getRowId();
         $tableName = $this->getTableName();
         $createdBy = $this->getCreatedBy();
@@ -109,7 +114,7 @@ class History extends Behavior
             
             case BaseActiveRecord::EVENT_AFTER_UPDATE:
                 foreach ($event->changedAttributes as $name => $value) {
-                    if ($value == $this->owner->$name) {
+                    if ($value == $this->owner->$name || isset($this->skipAttributes[$name])) {
                         continue;
                     }
                     $model = new HistoryModel([
@@ -125,7 +130,7 @@ class History extends Behavior
                     $storage->add($model);
                 }
                 break;
-        }      
+        }     
         $storage->flush();
     }
     
@@ -159,7 +164,7 @@ class History extends Behavior
      */
     protected function getCreatedBy()
     {
-        return $this->model->user->id;
+        return $this->module->user->id;
     }
     
     /**
