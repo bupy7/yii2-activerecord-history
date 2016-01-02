@@ -11,22 +11,22 @@ use bupy7\activerecord\history\models\History as HistoryModel;
 use yii\base\NotSupportedException;
 
 /**
- * 
+ * Behavior monitoring change the field value to model and saving their in storage.
  * @author Belosludcev Vasilij <https://github.com/bupy7>
  * @since 1.0.0
  */
 class History extends Behavior
 {
     /**
-     * Event types of history to the AR object: when insert row.
+     * Event types of history to the AR object: when create model.
      */
     const EVENT_INSERT = 1;
     /**
-     * Event types of history to the AR object: when update row.
+     * Event types of history to the AR object: when update model.
      */
     const EVENT_UPDATE = 2;
     /**
-     * Event types of history to the AR object: when delete row.
+     * Event types of history to the AR object: when delete model.
      */
     const EVENT_DELETE = 3;
     
@@ -39,11 +39,11 @@ class History extends Behavior
         self::EVENT_DELETE,
     ];
     /**
-     * @var array
+     * @var array List of attributes which not need track at updating. Apply only for `self::EVENT_UPDATE`.
      */
     public $skipAttributes = [];
     /**
-     * @var array
+     * @var array Mapping events between behavior and active record model.
      */
     protected $eventMap = [
         self::EVENT_INSERT => BaseActiveRecord::EVENT_AFTER_INSERT,
@@ -51,7 +51,7 @@ class History extends Behavior
         self::EVENT_DELETE => BaseActiveRecord::EVENT_AFTER_DELETE,
     ];  
     /**
-     * @var Module
+     * @var Module Instance of history module class.
      */
     protected $module;
     
@@ -78,6 +78,7 @@ class History extends Behavior
     }
     
     /**
+     * Process of saving history to storage.
      * @param Event $event
      */
     public function saveHistory(Event $event)
@@ -135,7 +136,7 @@ class History extends Behavior
     }
     
     /**
-     * 
+     * Return primary key of attached model.
      * @return string
      * @throws NotSupportedException
      */
@@ -151,6 +152,7 @@ class History extends Behavior
     }
     
     /**
+     * Return table name of attached model.
      * @return string
      */
     protected function getTableName()
@@ -160,6 +162,7 @@ class History extends Behavior
     }
     
     /**
+     * Return user id which updated, created or deleted model.
      * @return integer
      */
     protected function getCreatedBy()
@@ -168,6 +171,7 @@ class History extends Behavior
     }
     
     /**
+     * Return row id which updated, created or deleted.
      * @return integer
      */
     protected function getRowId()

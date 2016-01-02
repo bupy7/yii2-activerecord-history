@@ -3,22 +3,16 @@
 namespace bupy7\activerecord\history\interfaces;
 
 use Yii;
-use bupy7\activerecord\history\models\History;
 
 /**
- * 
+ * Interface of storage for history of active record model.
  * @author Belosludcev Vasilij <https://github.com/bupy7>
  * @since 1.0.0
  */
 interface Storage
-{
+{    
     /**
-     * 
-     * @param History $model
-     */
-    public function add(History $model);
-    
-    /**
+     * Saving to storage changed models.
      * @return boolean
      */
     public function flush();

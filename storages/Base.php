@@ -8,18 +8,19 @@ use bupy7\activerecord\history\models\History;
 use bupy7\activerecord\history\interfaces\Storage as StorageInterface;
 
 /**
- * 
+ * Base class of storage via which must be extends all storage classes.
  * @author Belosludcev Vasilij <https://github.com/bupy7>
- * @since 1,0.0
+ * @since 1.0.0
  */
 abstract class Base extends Object implements StorageInterface
 {
     /**
-     * @var array
+     * @var History[] Changes collection of active record models.
      */
     protected $collection = [];
     
     /**
+     * Add to changes collection of active record model.
      * @param History $model
      */
     public function add(History $model)
@@ -28,7 +29,8 @@ abstract class Base extends Object implements StorageInterface
     }
     
     /**
-     * @return array
+     * Return changes collection of active record models.
+     * @return History[]
      */
     public function getCollection()
     {

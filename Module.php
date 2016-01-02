@@ -8,7 +8,7 @@ use yii\di\Instance;
 use yii\web\User;
 
 /**
- * 
+ * This extension adds storage history of changes to the ActiveRecord model.
  * @author Belosludcev Vasilij <https://github.com/bupy7>
  * @since 1.0.0
  */
@@ -29,7 +29,8 @@ class Module extends \yii\base\Module
      */
     public $db = 'db';
     /**
-     * @var type 
+     * @var User|array|string the user object representing the authentication status or the ID of the user 
+     * application component.
      */
     public $user = 'user';
     

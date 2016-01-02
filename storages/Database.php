@@ -3,18 +3,19 @@
 namespace bupy7\activerecord\history\storages;
 
 use Yii;
+use bupy7\activerecord\history\models\History;
 use bupy7\activerecord\history\storages\Base as BaseStorage;
 use bupy7\activerecord\history\Module;
 
 /**
- * 
+ * Database storage history of changes.
  * @author Belosludcev Vasilij <https://github.com/bupy7>
  * @since 1.0.0
  */
 class Database extends BaseStorage
 {
     /**
-     * @var Module
+     * @var Module Instance of history module class.
      */
     protected $module;
     
@@ -41,8 +42,8 @@ class Database extends BaseStorage
     }
     
     /**
-     * 
-     * @param array $collection
+     * Prepare SQL query uses collection data.
+     * @param History[] $collection Changes collection of active record models.
      * @return string
      */
     protected function prepareQuery(array $collection)
