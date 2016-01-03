@@ -37,12 +37,20 @@ Usage
 **Register of module to config file:**
 
 ```php
-'arhistory' => [
-    'class' => 'bupy7\activerecord\history\Module',
+'modules' => [
+    'arhistory' => [
+        'class' => 'bupy7\activerecord\history\Module',
+    ],
 ],
 ```
 
 Name of module can be any (example: history, custom-name and etc).
+
+**Add module in bootstrap to config file:**
+
+```php
+'bootstrap' => ['arhistory'],
+``
 
 **Run migration:**
 
@@ -64,12 +72,14 @@ Configuration
 **Module configuration:**
 
 ```php
-'arhistory' => [
-    'class' => 'bupy7\activerecord\history\Module',
-    'tableName' => '{{%arhistory}}', // table name of saving changes of model
-    'storage' => 'bupy7\activerecord\history\storages\Database', // class name of storage for saving history of active record model
-    'db' => 'db', // database connection component config or name
-    'user' => 'user', // authentication component config or name
+'modules' => [
+    'arhistory' => [
+        'class' => 'bupy7\activerecord\history\Module',
+        'tableName' => '{{%arhistory}}', // table name of saving changes of model
+        'storage' => 'bupy7\activerecord\history\storages\Database', // class name of storage for saving history of active record model
+        'db' => 'db', // database connection component config or name
+        'user' => 'user', // authentication component config or name
+    ],
 ],
 ```
 

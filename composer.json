@@ -2,8 +2,18 @@
     "name": "bupy7/yii2-activerecord-history",
     "description": "This extension adds storage history of changes to the ActiveRecord model.",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension","module","activerecord","history","behavior"],
+    "keywords": [
+        "yii2",
+        "extension",
+        "module",
+        "activerecord",
+        "history",
+        "behavior",
+        "change",
+        "model"
+    ],
     "license": "BSD-3-Clause",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Vasilij Belosludcev",
