@@ -9,7 +9,7 @@
         "activerecord",
         "history",
         "behavior",
-        "change",
+        "changes",
         "model"
     ],
     "license": "BSD-3-Clause",
