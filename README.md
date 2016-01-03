@@ -8,6 +8,9 @@ yii2-activerecord-history
 
 This extension adds storage history of changes to the ActiveRecord model.
 
+Extension can tacking changes to model and save to storage.
+Allowed only storage to database. All changes saved to table in database.
+
 Installation
 ------------
 
