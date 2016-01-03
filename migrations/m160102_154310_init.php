@@ -6,6 +6,14 @@ use bupy7\activerecord\history\Module;
 
 class m160102_154310_init extends Migration
 {
+    protected $tableName;
+    
+    public function init()
+    {
+        parent::init();
+        $this->tableName = Module::getInstance()->tableName;
+    }
+    
     public function up()
     {
         $tableOptions = null;
@@ -13,8 +21,7 @@ class m160102_154310_init extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-        $tableName = Module::getInstance()->tableName;
-        $this->createTable($tableName, [
+        $this->createTable($this->tableName, [
             'id' => Schema::TYPE_PK,
             'table_name' => Schema::TYPE_STRING . ' NOT NULL',
             'row_id' => Schema::TYPE_INTEGER . ' NOT NULL',
@@ -25,17 +32,15 @@ class m160102_154310_init extends Migration
             'old_value' => Schema::TYPE_TEXT,
             'new_value' => Schema::TYPE_TEXT,
         ]);
-        $this->createIndex('index-1', $tableName, 'table_name');
-        $this->createIndex('index-2', $tableName, ['table_name', 'row_id']);
-        $this->createIndex('index-3', $tableName, ['table_name', 'field_name']);
-        $this->createIndex('index-4', $tableName, 'event');
+        $this->createIndex('index-1', $this->tableName, 'table_name');
+        $this->createIndex('index-2', $this->tableName, ['table_name', 'row_id']);
+        $this->createIndex('index-3', $this->tableName, ['table_name', 'field_name']);
+        $this->createIndex('index-4', $this->tableName, 'event');
     }
 
     public function down()
     {
-        echo "m160102_154310_init cannot be reverted.\n";
-
-        return false;
+        $this->dropTable($this->tableName);
     }
 
     /*
