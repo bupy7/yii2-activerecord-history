@@ -31,7 +31,7 @@ class History extends Behavior
     const EVENT_DELETE = 3;
     
     /**
-     * @var array Events list than saved in storage.
+     * @var array Allowed events list than are monitored and saved in storage.
      */
     public $allowEvents = [
         self::EVENT_INSERT,
