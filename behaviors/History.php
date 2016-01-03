@@ -43,6 +43,23 @@ class History extends Behavior
      */
     public $skipAttributes = [];
     /**
+     * @var array List of custom attributes which which are a pair of `key`=>`value` where `key` is attribute name and
+     * `value` it anonymous callback function of attribute. Function will be apply for old and value information data.
+     * Example:
+     * ```php
+     * [
+     *      'attribute_1' => function($event, $isNewValue) {
+     *          if ($isNewValue) {
+     *              return $event->sender->attribute_1; 
+     *          }
+     *          return $event->changedAttributes['attribute_1'];
+     *      },
+     * ]
+     * ```
+     *  Apply only for `self::EVENT_UPDATE`.
+     */
+    public $customAttributes = [];
+    /**
      * @var array Mapping events between behavior and active record model.
      */
     protected $eventMap = [
@@ -118,12 +135,19 @@ class History extends Behavior
                     if ($value == $this->owner->$name || isset($this->skipAttributes[$name])) {
                         continue;
                     }
+                    if (isset($this->customAttributes[$name])) {
+                        $oldValue = call_user_func($this->customAttributes[$name], $event, false);
+                        $newValue = call_user_func($this->customAttributes[$name], $event, true);
+                    } else {
+                        $oldValue = $value;
+                        $newValue = $this->owner->$name;
+                    }
                     $model = new HistoryEntity([
                         'tableName' => $tableName,
                         'rowId' => $rowId,
                         'fieldName' => $name,
-                        'oldValue' => $value,
-                        'newValue' => $this->owner->$name,
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
                         'event' => HistoryEntity::EVENT_UPDATE,
                         'createdAt' => $createdAt,
                         'createdBy' => $createdBy,
