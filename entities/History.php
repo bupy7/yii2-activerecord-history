@@ -28,23 +28,23 @@ class History extends Object
     /**
      * @var string Name of table where has been created or updated field.
      */
-    public $table_name;
+    public $tableName;
     /**
      * @var integer Id of row where has been created or updated field. 
      */
-    public $row_id;
+    public $rowId;
     /**
      * @var string Name change of field.
      */
-    public $field_name;
+    public $fieldName;
     /**
      * @var string Old value of field before updated field.
      */
-    public $old_value;
+    public $oldValue;
     /**
      * @var string New value of field after created or updated field.
      */
-    public $new_value;
+    public $newValue;
     /**
      * @var integer Event type of history to the AR object.
      */
@@ -52,10 +52,10 @@ class History extends Object
     /**
      * @var integer Timestamp of create or update field.
      */
-    public $created_at;
+    public $createdAt;
     /**
      * @var integer Id of user which created or updated field.
      */
-    public $created_by;
+    public $createdBy;
 }
 

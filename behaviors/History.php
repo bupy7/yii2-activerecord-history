@@ -93,22 +93,22 @@ class History extends Behavior
         switch ($event->name) {
             case BaseActiveRecord::EVENT_AFTER_INSERT:
                 $model = new HistoryEntity([
-                    'table_name' => $tableName,
-                    'row_id' => $rowId,
+                    'tableName' => $tableName,
+                    'rowId' => $rowId,
                     'event' => HistoryEntity::EVENT_INSERT,
-                    'created_at' => $createdAt,
-                    'created_by' => $createdBy,
+                    'createdAt' => $createdAt,
+                    'createdBy' => $createdBy,
                 ]);
                 $storage->add($model);
                 break;
             
             case BaseActiveRecord::EVENT_AFTER_DELETE:
                 $model = new HistoryEntity([
-                    'table_name' => $tableName,
-                    'row_id' => $rowId,
+                    'tableName' => $tableName,
+                    'rowId' => $rowId,
                     'event' => HistoryEntity::EVENT_DELETE,
-                    'created_at' => $createdAt,
-                    'created_by' => $createdBy,
+                    'createdAt' => $createdAt,
+                    'createdBy' => $createdBy,
                 ]);
                 $storage->add($model);
                 break;
@@ -119,14 +119,14 @@ class History extends Behavior
                         continue;
                     }
                     $model = new HistoryEntity([
-                        'table_name' => $tableName,
-                        'row_id' => $rowId,
-                        'field_name' => $name,
-                        'old_value' => $value,
-                        'new_value' => $this->owner->$name,
+                        'tableName' => $tableName,
+                        'rowId' => $rowId,
+                        'fieldName' => $name,
+                        'oldValue' => $value,
+                        'newValue' => $this->owner->$name,
                         'event' => HistoryEntity::EVENT_UPDATE,
-                        'created_at' => $createdAt,
-                        'created_by' => $createdBy,
+                        'createdAt' => $createdAt,
+                        'createdBy' => $createdBy,
                     ]);
                     $storage->add($model);
                 }

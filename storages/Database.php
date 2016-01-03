@@ -53,14 +53,14 @@ class Database extends BaseStorage
         $params = [];
         for ($i = 0; $i != count($collection); $i++) {
             $row = [
-                'table_name' => $collection[$i]->table_name,
-                'field_name' => $collection[$i]->field_name,
-                'row_id' => $collection[$i]->row_id,
-                'old_value' => $collection[$i]->old_value,
-                'new_value' => $collection[$i]->new_value,
+                'table_name' => $collection[$i]->tableName,
+                'field_name' => $collection[$i]->fieldName,
+                'row_id' => $collection[$i]->rowId,
+                'old_value' => $collection[$i]->oldValue,
+                'new_value' => $collection[$i]->newValue,
                 'event' => $collection[$i]->event,
-                'created_at' => $collection[$i]->created_at,
-                'created_by' => $collection[$i]->created_by,
+                'created_at' => $collection[$i]->createdAt,
+                'created_by' => $collection[$i]->createdBy,
             ];
             $sql[] = $queryBuilder->insert($this->module->tableName, $row, $params);
         }       
