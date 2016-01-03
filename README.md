@@ -103,6 +103,7 @@ $model->attachBehavior('arHistory', [
     ],
     // list of custom attributes which which are a pair of `key`=>`value` where `key` is attribute name and
     // `value` it anonymous callback function of attribute. Function will be apply for old and value information data.
+    // Apply only for `HistoryBehavior::EVENT_UPDATE`.
     'customAttributes' => function($event, $isNewValue) {
         'name_of_attribute_3' => function($event, $isNewValue) {
             if ($isNewValue) {
