@@ -50,7 +50,7 @@ Name of module can be any (example: history, custom-name and etc).
 
 ```php
 'bootstrap' => ['arhistory'],
-``
+```
 
 **Run migration:**
 
