@@ -34,6 +34,8 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
+> NOTICE! Configuration of module must have in `common/config/main.php` if you will use `andanced` template. Or in `config/main.php` if you will use `basic` template.
+
 **Register of module to config file:**
 
 ```php
