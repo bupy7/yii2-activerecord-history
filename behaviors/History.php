@@ -107,55 +107,46 @@ class History extends Behavior
         
         $storage = new $this->module->storage;
         
+        $historyEntityData = [
+            'tableName' => $tableName,
+            'rowId' => $rowId,
+            'createdAt' => $createdAt,
+            'createdBy' => $createdBy,
+        ];
+
         switch ($event->name) {
             case BaseActiveRecord::EVENT_AFTER_INSERT:
-                $model = new HistoryEntity([
-                    'tableName' => $tableName,
-                    'rowId' => $rowId,
-                    'event' => HistoryEntity::EVENT_INSERT,
-                    'createdAt' => $createdAt,
-                    'createdBy' => $createdBy,
-                ]);
-                $storage->add($model);
+                $historyEntityData['event'] = HistoryEntity::EVENT_INSERT;
                 break;
-            
+
             case BaseActiveRecord::EVENT_AFTER_DELETE:
-                $model = new HistoryEntity([
-                    'tableName' => $tableName,
-                    'rowId' => $rowId,
-                    'event' => HistoryEntity::EVENT_DELETE,
-                    'createdAt' => $createdAt,
-                    'createdBy' => $createdBy,
-                ]);
-                $storage->add($model);
+                $historyEntityData['event'] = HistoryEntity::EVENT_DELETE;
                 break;
-            
+
             case BaseActiveRecord::EVENT_AFTER_UPDATE:
                 foreach ($event->changedAttributes as $name => $value) {
-                    if ($value == $this->owner->$name || isset($this->skipAttributes[$name])) {
+
+                    if (isset($this->skipAttributes[$name]))
                         continue;
-                    }
+
+                    if ($value == $this->owner->$name)
+                        continue;
+
                     if (isset($this->customAttributes[$name])) {
-                        $oldValue = call_user_func($this->customAttributes[$name], $event, false);
-                        $newValue = call_user_func($this->customAttributes[$name], $event, true);
+                        $historyEntityData['oldValue'] = call_user_func($this->customAttributes[$name], $event, false);
+                        $historyEntityData['newValue'] = call_user_func($this->customAttributes[$name], $event, true);
                     } else {
-                        $oldValue = $value;
-                        $newValue = $this->owner->$name;
+                        $historyEntityData['oldValue'] = $value;
+                        $historyEntityData['newValue'] = $this->owner->$name;
                     }
-                    $model = new HistoryEntity([
-                        'tableName' => $tableName,
-                        'rowId' => $rowId,
-                        'fieldName' => $name,
-                        'oldValue' => $oldValue,
-                        'newValue' => $newValue,
-                        'event' => HistoryEntity::EVENT_UPDATE,
-                        'createdAt' => $createdAt,
-                        'createdBy' => $createdBy,
-                    ]);
-                    $storage->add($model);
+                    $historyEntityData['fieldName'] = $name;
+                    $historyEntityData['event'] = HistoryEntity::EVENT_UPDATE;
                 }
                 break;
-        }     
+        }
+        
+        $model = new HistoryEntity($historyEntityData);
+        $storage->add($model);
         $storage->flush();
     }
     
