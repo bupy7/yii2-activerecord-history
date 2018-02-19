@@ -1,0 +1,20 @@
+language: php
+php:
+    - '5.4'
+    - '5.5'
+    - '5.6'
+    - '7.0'
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE app_test;'
+
+before_script:
+    - travis_retry composer self-update && composer --version
+    - export PATH="$HOME/.composer/vendor/bin:$PATH"
+    - travis_retry composer install --prefer-dist --no-interaction
+
+after_script:
+    - vendor/bin/coveralls -v
