@@ -17,15 +17,12 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      */
     static private $migrationApplied = false;
 
-    public static function setUpBeforeClass()
-    {
-        self::mockApplication();
-        self::applyMigrations();
-    }
-
     protected function setUp()
     {
+        $this->mockApplication();
+        $this->applyMigrations();
         $this->applyFixtures();
+        $this->clearArHistory();
     }
 
     protected function tearDown()
@@ -36,7 +33,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     /**
      * @param array $config
      */
-    static private function mockApplication($config = [])
+    private function mockApplication($config = [])
     {
         new Application(ArrayHelper::merge(require __DIR__ . '/assets/config/main.php', $config));
     }
@@ -50,7 +47,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
         Yii::$container = new Container();
     }
 
-    static private function applyMigrations()
+    private function applyMigrations()
     {
         if (!self::$migrationApplied) {
             $migrateController = new MigrateController('migrate', Yii::$app);
@@ -72,5 +69,10 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 
         $postFixture->unload();
         $postFixture->load();
+    }
+
+    private function clearArHistory()
+    {
+        Yii::$app->db->createCommand('TRUNCATE `arhistory`')->execute();
     }
 }

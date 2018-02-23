@@ -31,7 +31,7 @@ class m160102_154310_init extends Migration
             'field_name' => Schema::TYPE_STRING,
             'old_value' => Schema::TYPE_TEXT,
             'new_value' => Schema::TYPE_TEXT,
-        ]);
+        ], $tableOptions);
         $this->createIndex('index-1', $this->tableName, 'table_name');
         $this->createIndex('index-2', $this->tableName, ['table_name', 'row_id']);
         $this->createIndex('index-3', $this->tableName, ['table_name', 'field_name']);

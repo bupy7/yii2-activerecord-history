@@ -9,7 +9,7 @@ return [
     'basePath' => __DIR__ . '/..',
     'vendorPath' => __DIR__ . '/../../../../vendor',
     'aliases' => [
-        '@bupy7/activerecord/history' => __DIR__ . '/../../../src',
+        '@bupy7/activerecord/history' => __DIR__ . '/../../../../src',
     ],
     'bootstrap' => ['arhistory'],
     'modules' => [
