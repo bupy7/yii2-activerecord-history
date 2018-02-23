@@ -20,13 +20,19 @@
             "email": "bupy765@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "require": {
         "yiisoft/yii2": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 <6.0.0",
-        "satooshi/php-coveralls": "^1.0.1",
-        "friendsofphp/php-cs-fixer": "2.2.3"
+        "satooshi/php-coveralls": "^1.0.1 || ^2.0",
+        "friendsofphp/php-cs-fixer": "^2.2.17"
     },
     "autoload": {
         "psr-4": {
@@ -39,6 +45,10 @@
         }
     },
     "scripts": {
-        "test": "php vendor/bin/phpunit"
+        "test:build": "php ./tests/functional/bin/yii --migrationPath=@bupy7/activerecord/history/migrations --interactive=0",
+        "test:run": "php vendor/bin/phpunit --no-coverage",
+        "test:run-with-cov": "php vendor/bin/phpunit",
+        "cs:fix": "./vendor/bin/php-cs-fixer fix",
+        "cs:check": "./vendor/bin/php-cs-fixer fix --dry-run --diff"
     }
 }

@@ -5,3 +5,4 @@
 /nbproject
 /.idea
 /phpunit.xml.dist
+/.php_cs.cache

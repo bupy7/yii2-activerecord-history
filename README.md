@@ -5,6 +5,8 @@ yii2-activerecord-history
 [![Total Downloads](https://poser.pugx.org/bupy7/yii2-activerecord-history/downloads)](https://packagist.org/packages/bupy7/yii2-activerecord-history)
 [![Latest Unstable Version](https://poser.pugx.org/bupy7/yii2-activerecord-history/v/unstable)](https://packagist.org/packages/bupy7/yii2-activerecord-history)
 [![License](https://poser.pugx.org/bupy7/yii2-activerecord-history/license)](https://packagist.org/packages/bupy7/yii2-activerecord-history)
+[![Build Status](https://travis-ci.org/bupy7/yii2-activerecord-history.svg?branch=master)](https://travis-ci.org/bupy7/yii2-activerecord-history)
+[![Coverage Status](https://coveralls.io/repos/github/bupy7/yii2-activerecord-history/badge.svg?branch=master)](https://coveralls.io/github/bupy7/yii2-activerecord-history?branch=master)
 
 This extension adds storage history of changes to the ActiveRecord model.
 

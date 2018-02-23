@@ -26,4 +26,12 @@
         <log type="coverage-html" target="build/coverage"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
+
+    <php>
+        <env name="db_host" value="127.0.0.1"/>
+        <env name="db_username" value="root"/>
+        <env name="db_password" value=""/>
+        <env name="db_name" value="app_test"/>
+        <env name="db_port" value="3306"/>
+    </php>
 </phpunit>
