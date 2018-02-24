@@ -30,7 +30,7 @@ class History extends Object
      */
     public $tableName;
     /**
-     * @var integer Id of row where has been created or updated field. 
+     * @var integer Id of row where has been created or updated field.
      */
     public $rowId;
     /**
@@ -58,4 +58,3 @@ class History extends Object
      */
     public $createdBy;
 }
-

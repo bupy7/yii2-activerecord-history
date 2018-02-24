@@ -27,7 +27,7 @@ class Module extends \yii\base\Module
      */
     public $db = 'db';
     /**
-     * @var User|array|string the user object representing the authentication status or the ID of the user 
+     * @var User|array|string the user object representing the authentication status or the ID of the user
      * application component.
      */
     public $user = 'user';

@@ -10,7 +10,7 @@ use Yii;
  * @since 1.0.0
  */
 interface Storage
-{    
+{
     /**
      * Saving to storage changed models.
      * @return boolean

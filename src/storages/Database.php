@@ -32,7 +32,7 @@ class Database extends BaseStorage
      * @inheritdoc
      */
     public function flush()
-    {          
+    {
         $collection = $this->getCollection();
         if (!empty($collection)) {
             list($sql, $params) = $this->prepareQuery($collection);
@@ -48,7 +48,7 @@ class Database extends BaseStorage
      */
     protected function prepareQuery(array $collection)
     {
-        $queryBuilder = $this->module->db->getQueryBuilder();    
+        $queryBuilder = $this->module->db->getQueryBuilder();
         $sql = [];
         $params = [];
         for ($i = 0; $i != count($collection); $i++) {
@@ -63,8 +63,7 @@ class Database extends BaseStorage
                 'created_by' => $collection[$i]->createdBy,
             ];
             $sql[] = $queryBuilder->insert($this->module->tableName, $row, $params);
-        }       
+        }
         return [implode(';' . PHP_EOL, $sql), $params];
     }
 }
-

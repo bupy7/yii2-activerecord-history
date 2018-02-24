@@ -13,7 +13,7 @@ class Env
     /**
      * @var
      */
-    static private $instance;
+    private static $instance;
 
     private function __construct(array $params)
     {
@@ -23,7 +23,7 @@ class Env
     /**
      * @return Env
      */
-    static public function getInstance()
+    public static function getInstance()
     {
         if (self::$instance === null) {
             self::$instance = new Env($_ENV);

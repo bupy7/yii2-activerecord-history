@@ -5,7 +5,6 @@ use PhpCsFixer\Config;
 
 $finder = Finder::create()
     ->in(__DIR__ . '/src')
-    ->in(__DIR__ . '/migrations')
     ->in(__DIR__ . '/tests');
 
 return Config::create()->setRules([

@@ -15,7 +15,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     /**
      * @var bool
      */
-    static private $migrationApplied = false;
+    private static $migrationApplied = false;
 
     protected function setUp()
     {

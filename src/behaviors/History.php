@@ -2,7 +2,6 @@
 
 namespace bupy7\activerecord\history\behaviors;
 
-use Yii;
 use yii\base\Behavior;
 use yii\db\BaseActiveRecord;
 use yii\base\Event;
@@ -13,6 +12,9 @@ use yii\base\NotSupportedException;
 /**
  * Behavior monitoring change the field value to model and saving their in storage.
  * @author Belosludcev Vasilij <https://github.com/bupy7>
+ *
+ * @property \yii\db\ActiveRecord owner
+ *
  * @since 1.0.0
  */
 class History extends Behavior
@@ -50,7 +52,7 @@ class History extends Behavior
      * [
      *      'attribute_1' => function($event, $isNewValue) {
      *          if ($isNewValue) {
-     *              return $event->sender->attribute_1; 
+     *              return $event->sender->attribute_1;
      *          }
      *          return $event->changedAttributes['attribute_1'];
      *      },
@@ -66,7 +68,7 @@ class History extends Behavior
         self::EVENT_INSERT => BaseActiveRecord::EVENT_AFTER_INSERT,
         self::EVENT_UPDATE => BaseActiveRecord::EVENT_AFTER_UPDATE,
         self::EVENT_DELETE => BaseActiveRecord::EVENT_AFTER_DELETE,
-    ];  
+    ];
     /**
      * @var Module Instance of history module class.
      */
@@ -88,7 +90,7 @@ class History extends Behavior
     public function events()
     {
         $events = [];
-        foreach ($this->allowEvents as $name){
+        foreach ($this->allowEvents as $name) {
             $events[$this->eventMap[$name]] = 'saveHistory';
         }
         return $events;
@@ -99,12 +101,13 @@ class History extends Behavior
      * @param Event $event
      */
     public function saveHistory(Event $event)
-    {   
+    {
         $rowId = $this->getRowId();
         $tableName = $this->getTableName();
         $createdBy = $this->getCreatedBy();
-        $createdAt = time();    
-        
+        $createdAt = time();
+
+        /** @var \bupy7\activerecord\history\storages\Base $storage */
         $storage = new $this->module->storage;
         
         switch ($event->name) {
@@ -155,7 +158,7 @@ class History extends Behavior
                     $storage->add($model);
                 }
                 break;
-        }     
+        }
         $storage->flush();
     }
     
@@ -171,7 +174,7 @@ class History extends Behavior
             $primaryKey = array_shift($primaryKey);
         } else {
             throw new NotSupportedException('Composite primary key not supported.');
-        } 
+        }
         return $primaryKey;
     }
     
@@ -204,4 +207,3 @@ class History extends Behavior
         return $this->owner->$primaryKey;
     }
 }
-

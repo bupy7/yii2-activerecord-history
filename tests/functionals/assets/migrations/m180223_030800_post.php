@@ -17,6 +17,7 @@ class m180223_030800_post extends Migration
             'id' => Schema::TYPE_PK,
             'title' => Schema::TYPE_STRING . ' NOT NULL',
             'content' => Schema::TYPE_TEXT . ' NOT NULL',
+            'type' => Schema::TYPE_SMALLINT . ' NOT NULL',
         ], $tableOptions);
     }
 
