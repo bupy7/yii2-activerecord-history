@@ -259,6 +259,19 @@ class HistoryTest extends TestCase
         $this->assertFalse(isset($history['updated_at']));
 
         // test 2
+        $post->updated_at = new Expression('NOW()');
+
+        $this->assertTrue($post->save());
+
+        $q = new Query();
+        $history = $q->from('arhistory')
+            ->where(['row_id' => $post->id])
+            ->indexBy('field_name')
+            ->all();
+
+        $this->assertFalse(isset($history['updated_at']));
+
+        // test 3
         $post->getBehavior('arhistory')->skipAttributes = [];
 
         $post->updated_at = new Expression('NOW()');
