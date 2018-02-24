@@ -135,7 +135,7 @@ class History extends Behavior
             
             case BaseActiveRecord::EVENT_AFTER_UPDATE:
                 foreach ($event->changedAttributes as $name => $value) {
-                    if ($value == $this->owner->$name || isset($this->skipAttributes[$name])) {
+                    if (isset($this->skipAttributes[$name]) || $this->isEquals($name, $value)) {
                         continue;
                     }
                     if (isset($this->customAttributes[$name])) {
@@ -167,7 +167,7 @@ class History extends Behavior
      * @return string
      * @throws NotSupportedException
      */
-    protected function getPrimaryKey()
+    private function getPrimaryKey()
     {
         $primaryKey = $this->owner->primaryKey();
         if (count($primaryKey) == 1) {
@@ -182,7 +182,7 @@ class History extends Behavior
      * Return table name of attached model.
      * @return string
      */
-    protected function getTableName()
+    private function getTableName()
     {
         $owner = $this->owner;
         return $owner::tableName();
@@ -192,7 +192,7 @@ class History extends Behavior
      * Return user id which updated, created or deleted model.
      * @return integer
      */
-    protected function getCreatedBy()
+    private function getCreatedBy()
     {
         return $this->module->user->id;
     }
@@ -201,9 +201,22 @@ class History extends Behavior
      * Return row id which updated, created or deleted.
      * @return integer
      */
-    protected function getRowId()
+    private function getRowId()
     {
         $primaryKey = $this->getPrimaryKey();
         return $this->owner->$primaryKey;
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $value
+     * @return bool
+     */
+    private function isEquals($name, $value)
+    {
+        if (is_object($value)) {
+            return $value === $this->owner->$name;
+        }
+        return $value == $this->owner->$name;
     }
 }
