@@ -8,10 +8,12 @@ use bupy7\activerecord\history\tests\functionals\assets\models\Post;
 use bupy7\activerecord\history\tests\functionals\assets\models\User;
 use yii\db\Query;
 use bupy7\activerecord\history\behaviors\History;
+use yii\db\Expression;
+use DateTime;
 
 class HistoryTest extends TestCase
 {
-    public function testCreateEventRecord()
+    public function testInsertEventRecord()
     {
         $post = new Post();
 
@@ -22,6 +24,8 @@ class HistoryTest extends TestCase
         $post->title = 'New Post Title';
         $post->content = 'New Post Content';
         $post->type = Post::TYPE_NEWS;
+        $post->created_at = (new DateTime())->format(Post::DATE_TIME_FORMAT);
+        $post->updated_at = $post->created_at;
 
         $this->assertTrue($post->save());
 
@@ -170,6 +174,7 @@ class HistoryTest extends TestCase
         $post->title = 'New Post Title';
         $post->content = 'New Post Content';
         $post->type = Post::TYPE_NEWS;
+        $post->created_at = (new DateTime())->format(Post::DATE_TIME_FORMAT);
 
         $this->assertTrue($post->save());
 
@@ -226,6 +231,45 @@ class HistoryTest extends TestCase
             ->one();
 
         $this->assertFalse($history);
+    }
+
+    public function testSkipAttributesWithDbExpression()
+    {
+        // test 1
+        $post = Post::findOne(2);
+
+        $post->attachBehavior('arhistory', [
+            'class' => 'bupy7\activerecord\history\behaviors\History',
+            'skipAttributes' => [
+                'updated_at',
+            ],
+        ]);
+
+        $post->title = 'Changed Title for Skip Attributes With Db Expression';
+        $post->updated_at = new Expression('NOW()');
+
+        $this->assertTrue($post->save());
+
+        $q = new Query();
+        $history = $q->from('arhistory')
+            ->where(['row_id' => $post->id])
+            ->indexBy('field_name')
+            ->all();
+
+        $this->assertFalse(isset($history['updated_at']));
+
+        // test 2
+        $post->updated_at = new Expression('NOW()');
+
+        $this->assertTrue($post->save());
+
+        $q = new Query();
+        $history = $q->from('arhistory')
+            ->where(['row_id' => $post->id])
+            ->indexBy('field_name')
+            ->all();
+
+        $this->assertFalse(isset($history['created_at']));
     }
 
     protected function setUp()

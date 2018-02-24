@@ -18,6 +18,8 @@ class m180223_030800_post extends Migration
             'title' => Schema::TYPE_STRING . ' NOT NULL',
             'content' => Schema::TYPE_TEXT . ' NOT NULL',
             'type' => Schema::TYPE_SMALLINT . ' NOT NULL',
+            'created_at' => Schema::TYPE_DATETIME . ' NOT NULL',
+            'updated_at' => Schema::TYPE_DATETIME . ' NOT NULL',
         ], $tableOptions);
     }
 

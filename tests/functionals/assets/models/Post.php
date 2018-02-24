@@ -9,9 +9,13 @@ use yii\db\ActiveRecord;
  * @property string $title
  * @property string $content
  * @property int $type
+ * @property string $created_at
+ * @property string $updated_at
  */
 class Post extends ActiveRecord
 {
+    const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
+
     const TYPE_NEWS = 10;
     const TYPE_ARTICLE = 20;
 
