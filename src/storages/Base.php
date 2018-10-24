@@ -3,7 +3,7 @@
 namespace bupy7\activerecord\history\storages;
 
 use Yii;
-use yii\base\Object;
+use bupy7\activerecord\history\base\BaseObject;
 use bupy7\activerecord\history\entities\History;
 use bupy7\activerecord\history\interfaces\Storage as StorageInterface;
 
@@ -12,7 +12,7 @@ use bupy7\activerecord\history\interfaces\Storage as StorageInterface;
  * @author Belosludcev Vasilij <https://github.com/bupy7>
  * @since 1.0.0
  */
-abstract class Base extends Object implements StorageInterface
+abstract class Base extends BaseObject implements StorageInterface
 {
     /**
      * @var History[] Changes collection of active record models.

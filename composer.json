@@ -45,7 +45,6 @@
         }
     },
     "scripts": {
-        "test:build": "php ./tests/functional/bin/yii --migrationPath=@bupy7/activerecord/history/migrations --interactive=0",
         "test:run": "php vendor/bin/phpunit --no-coverage",
         "test:run-with-cov": "php vendor/bin/phpunit",
         "cs:fix": "./vendor/bin/php-cs-fixer fix",

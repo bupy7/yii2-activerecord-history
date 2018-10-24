@@ -1,6 +1,12 @@
 yii2-activerecord-history
 =========================
 
+v1.1.2 [2018-10-24]
+-------------------
+
+- Added support PHP 7.2.
+- Added the shim class for `\yii\base\Object` and `yii\base\BaseObject`.
+
 v1.1.1 [2018-06-04]
 -------------------
 

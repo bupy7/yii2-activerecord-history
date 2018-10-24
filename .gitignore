@@ -4,5 +4,5 @@
 /build
 /nbproject
 /.idea
-/phpunit.xml.dist
+/phpunit.xml
 /.php_cs.cache
