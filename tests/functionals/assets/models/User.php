@@ -3,10 +3,10 @@
 namespace bupy7\activerecord\history\tests\functionals\assets\models;
 
 use BadMethodCallException;
-use yii\base\Object;
+use bupy7\activerecord\history\base\BaseObject;
 use yii\web\IdentityInterface;
 
-class User extends Object implements IdentityInterface
+class User extends BaseObject implements IdentityInterface
 {
     /**
      * @var int
