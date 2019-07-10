@@ -167,7 +167,7 @@ class History extends Behavior
      * @return string
      * @throws NotSupportedException
      */
-    private function getPrimaryKey()
+    protected function getPrimaryKey()
     {
         $primaryKey = $this->owner->primaryKey();
         if (count($primaryKey) == 1) {
@@ -182,7 +182,7 @@ class History extends Behavior
      * Return table name of attached model.
      * @return string
      */
-    private function getTableName()
+    protected function getTableName()
     {
         $owner = $this->owner;
         return $owner::tableName();
@@ -192,7 +192,7 @@ class History extends Behavior
      * Return user id which updated, created or deleted model.
      * @return integer
      */
-    private function getCreatedBy()
+    protected function getCreatedBy()
     {
         return $this->module->user->id;
     }
@@ -201,7 +201,7 @@ class History extends Behavior
      * Return row id which updated, created or deleted.
      * @return integer
      */
-    private function getRowId()
+    protected function getRowId()
     {
         $primaryKey = $this->getPrimaryKey();
         return $this->owner->$primaryKey;
@@ -212,7 +212,7 @@ class History extends Behavior
      * @param mixed $value
      * @return bool
      */
-    private function isEquals($name, $value)
+    protected function isEquals($name, $value)
     {
         if (is_object($value)) {
             return $value === $this->owner->$name;
