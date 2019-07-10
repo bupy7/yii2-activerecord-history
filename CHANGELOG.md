@@ -1,6 +1,11 @@
 yii2-activerecord-history
 =========================
 
+v1.2.0 [2019-07-10]
+-------------------
+
+- Changed access modifiers in `bupy7\activerecord\history\behaviors\History`. (VictorSuhov) 
+
 v1.1.2 [2018-10-24]
 -------------------
 

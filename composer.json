@@ -13,11 +13,11 @@
         "model"
     ],
     "license": "BSD-3-Clause",
-    "version": "1.1.2",
+    "version": "1.2.0",
     "authors": [
         {
-            "name": "Vasilij Belosludcev",
-            "email": "bupy765@gmail.com"
+            "name": "Vasily Belosloodcev",
+            "email": "vasily.belosloodcev@gmail.com"
         }
     ],
     "repositories": [
